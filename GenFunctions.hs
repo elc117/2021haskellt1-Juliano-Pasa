@@ -1,5 +1,8 @@
 module GenFunctions
-(logisticMap, calcAngle, calcLineEndPoint) where
+(logisticMap, calcAngle, calcLineEndPoint, genLinesInOrigin) where
+
+type Point = (Float,Float)
+type Line = (Point,Point) 
 
 -- Funcao do mapa logistico
 -- Xn+1 = R * Xn * (1 - Xn)
@@ -16,7 +19,7 @@ logisticMap x r n = take n $ iterate (\result -> r * result * (1 - result)) x
 -- descobrir as coordenadas de um ponto que parte da origem e tem comprimento = 1
 --  Ela prepara os valores de x e y das linhas para que elas possam ser multiplicadas
 -- por seus comprimentos na proxima funcao
-calcAngle :: [Float] -> [(Float, Float)]
+calcAngle :: [Float] -> [Point]
 calcAngle lista = [(cos (pi*x - (pi/2)), sin (pi*x - (pi/2))) | x <- lista]  
 
 
@@ -24,5 +27,10 @@ calcAngle lista = [(cos (pi*x - (pi/2)), sin (pi*x - (pi/2))) | x <- lista]
 --  Essa funcao tem como entrada as coordenadas calculadas pela funcao anterior
 -- e o comprimento de cada linha
 --  Entao, eh multiplicado o comprimento da linha por sua coordenada correspondente
-calcLineEndPoint :: [Float] -> [(Float, Float)] -> [(Float, Float)]
+calcLineEndPoint :: [Float] -> [Point] -> [Point]
 calcLineEndPoint sizes points = zipWith (\size (x, y) -> (x*size, y*size)) sizes points
+
+genLinesInOrigin :: Point -> [Point] -> [Line]
+genLinesInOrigin origin points = map (\ponto -> (origin, ponto)) points
+
+
