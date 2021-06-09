@@ -1,5 +1,5 @@
 module SvgFunctions
-(svgLine, svgBegin, svgEnd, svgElements, svgStyle, redPalette, rgbPalette) where
+(svgLine, svgBegin, svgEnd, svgElements, svgStyle, redPalette, rgbPalette, onlyRed) where
 
 import Text.Printf
 
@@ -27,7 +27,7 @@ svgEnd = "</svg>"
 -- Gera string com atributos de estilo para uma dada cor
 -- Atributo mix-blend-mode permite misturar cores
 svgStyle :: (Int,Int,Int) -> String
-svgStyle (r,g,b) = printf "stroke:rgb(%d,%d,%d);stroke-width:3" r g b
+svgStyle (r,g,b) = printf "stroke:rgba(%d,%d,%d, 0.1);stroke-width:3" r g b
 
 -- Gera strings SVG para uma dada lista de figuras e seus atributos de estilo
 -- Recebe uma função geradora de strings SVG, uma lista de linhas e strings de estilo
@@ -39,3 +39,6 @@ redPalette n = [(x, 0, 0) | x <- take n [div 255 n,2*(div 255 n)..]]
 
 rgbPalette :: Int -> [(Int,Int,Int)]
 rgbPalette n = take n $ cycle [(255,0,0),(0,255,0),(0,0,255)]
+
+onlyRed :: Int -> [(Int,Int,Int)] 
+onlyRed n = replicate n (255, 0, 0)

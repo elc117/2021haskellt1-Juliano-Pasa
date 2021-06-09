@@ -30,7 +30,14 @@ calcAngle lista = [(cos (pi*x - (pi/2)), sin (pi*x - (pi/2))) | x <- lista]
 calcLineEndPoint :: [Float] -> [Point] -> [Point]
 calcLineEndPoint sizes points = zipWith (\size (x, y) -> (x*size, y*size)) sizes points
 
-genLinesInOrigin :: Point -> [Point] -> [Line]
-genLinesInOrigin origin points = map (\ponto -> (origin, ponto)) points
+-- Funcao que monta a linha
+--  Essa funcao recebe como parametro o ponto de origem comum de todas as linhas e
+-- os pontos finais de cada linha
+--  Ela o ponto de origem com o ponto final para criar definitivamente a linha 
+--  A variavel size determina exatamente a metade da altura do canvas gerado
+--  Ao fazer size - y, valores positivos de y ficarao acima da metade do canvas e 
+-- valores negativos ficarao abaixo, da mesma forma que funcionaria um grafico
+genLinesInOrigin :: Point -> [Point] -> Float -> [Line]
+genLinesInOrigin origin points size = map (\(x,y) -> (origin, (x,size-y))) points
 
 
