@@ -20,7 +20,7 @@ logisticMap x r n = take n $ iterate (\result -> r * result * (1 - result)) x
 --  Ela prepara os valores de x e y das linhas para que elas possam ser multiplicadas
 -- por seus comprimentos na proxima funcao
 calcAngle :: [Float] -> [Point]
-calcAngle lista = [(cos (pi*x - (pi/2)), sin (pi*x - (pi/2))) | x <- lista]  
+calcAngle lista = [(cos (pi*(x*2)), sin (pi*(x*2))) | x <- lista]  
 
 
 -- Funcao que calculo o ponto final da linha
@@ -38,6 +38,6 @@ calcLineEndPoint sizes points = zipWith (\size (x, y) -> (x*size, y*size)) sizes
 --  Ao fazer size - y, valores positivos de y ficarao acima da metade do canvas e 
 -- valores negativos ficarao abaixo, da mesma forma que funcionaria um grafico
 genLinesInOrigin :: Point -> [Point] -> Float -> [Line]
-genLinesInOrigin origin points size = map (\(x,y) -> (origin, (x,size-y))) points
+genLinesInOrigin origin points size = map (\(x,y) -> (origin, (size-x,size-y))) points
 
 
