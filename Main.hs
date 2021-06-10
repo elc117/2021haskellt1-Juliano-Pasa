@@ -3,6 +3,8 @@ import SvgFunctions
 
 main :: IO ()
 main = do
+  putStr "Informe a taxa: "
+  r <- getLine
   writeFile "figs.svg" $ svgstrs
   where svgstrs = svgBegin w h ++ svgfigs ++ svgEnd
         svgfigs = svgElements svgLine completeLines (map svgStyle palette)
@@ -10,7 +12,7 @@ main = do
         allLines = calcLineEndPoint (replicate n (w/2)) (calcAngle (logisticMap x r n))
         palette = onlyRed n
         n = 100
-        r = 3.6
+        r = 1
         x = 0.5
         origin = (250, 250)
         (w, h) = (500, 500)
