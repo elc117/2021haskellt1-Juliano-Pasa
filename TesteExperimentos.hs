@@ -1,11 +1,28 @@
 -- Documento especialmente para testes
 
-logisticMap :: Float -> Float -> Int -> [Float]
-logisticMap x r n = take n $ iterate (\result -> r*result*(1 - result)) x
+import GenFunctions
+import SvgFunctions
 
-calcAngle :: [Float] -> [(Float, Float)]
-calcAngle lista = [(cos (pi*x - (pi/2)), sin (pi*x - (pi/2))) | x <- lista]  
+main :: IO ()
+main = do
+    putStr "Informe o numero de repeticoes: "
+    n <- getLine
+    putStr "Informe o valor inicial de 0 a 1: "
+    x <- getLine
+    putStr "Informe a taxa R: "
+    r <- getLine
+    
+    let nLinhas = (read n :: Int)
+    let vInicial = (read x :: Float)
+    let taxa = (read r :: Float)
 
-calcLineEndPoint :: [Float] -> [(Float, Float)] -> [(Float, Float)]
-calcLineEndPoint sizes points = zipWith (\size (x, y) -> (x*size, y*size)) sizes points
+    let svgstrs = svgBegin w h ++ svgfigs ++ svgEnd
+        svgfigs = svgElements svgLine completeLines (map svgStyle palette)
+        completeLines = genLinesInOrigin origin allLines (h/2)
+        allLines = calcLineEndPoint (replicate nLinhas (w/2)) (calcAngle results)
+        palette = simpleColorWheel results
+        results = logisticMap vInicial taxa nLinhas
+        origin = (250, 250)
+        (w, h) = (500, 500)
+    writeFile "testess.svg" $ svgstrs
 

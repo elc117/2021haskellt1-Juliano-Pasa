@@ -18,7 +18,7 @@ svgLine ((x1, y1), (x2, y2)) style =
 
 -- String inicial do SVG
 svgBegin :: Float -> Float -> String
-svgBegin w h = printf "<svg width='%.2f' height='%.2f' xmlns='http://www.w3.org/2000/svg'>\n" w h 
+svgBegin w h = printf "<svg width='%.2f' height='%.2f' style='background-color:black' xmlns='http://www.w3.org/2000/svg'>\n" w h 
 
 -- String final do SVG
 svgEnd :: String
