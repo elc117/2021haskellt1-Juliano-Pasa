@@ -8,5 +8,5 @@ Ja o R pode assumir qualquer valor real, no entanto, alguns determinados valores
 Para usar o programa basta chamar a funcao main e informar os valores requisitados.
 
 <p align="center"> 
-  <img src="main.svg" alt="Exemplo de imagem gerada pelo algoritmo, no formato .svg" width="500"/>
+  <img src="figs.svg" alt="Exemplo de imagem gerada pelo algoritmo, no formato .svg" width="500"/>
 </p>

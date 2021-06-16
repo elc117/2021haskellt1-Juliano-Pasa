@@ -22,5 +22,5 @@ main = do
         results = logisticMap vInicial taxa nLinhas
         origin = (250, 250)
         (w, h) = (500, 500)
-    writeFile "testess.svg" $ svgstrs
+    writeFile "figs.svg" $ svgstrs
         
