@@ -15,12 +15,14 @@ main = do
     let taxa = (read r :: Float)
 
     let svgstrs = svgBegin w h ++ svgfigs ++ svgEnd
-        svgfigs = svgElements svgLine completeLines (map svgStyle palette)
+        svgfigs = svgElements svgLine completeLines (map (svgStyle alpha width) palette)
         completeLines = genLinesInOrigin origin allLines (h/2)
         allLines = calcLineEndPoint (replicate nLinhas (w/2)) (calcAngle results)
         palette = simpleColorWheel results
         results = logisticMap vInicial taxa nLinhas
-        origin = (250, 250)
+        origin = (w/2, h/2)
         (w, h) = (500, 500)
+        alpha = 0.3
+        width = 3
     writeFile "figs.svg" $ svgstrs
         

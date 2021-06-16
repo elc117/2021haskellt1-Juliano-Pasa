@@ -1,5 +1,5 @@
 module SvgFunctions
-(svgLine, svgBegin, svgEnd, svgElements, svgStyle, redPalette, rgbPalette, onlyRed, simpleColorWheel) where
+(svgLine, svgBegin, svgEnd, svgElements, svgStyle, simpleColorWheel) where
 
 import Text.Printf
 
@@ -26,22 +26,19 @@ svgEnd = "</svg>"
 
 -- Gera string com atributos de estilo para uma dada cor
 -- Atributo mix-blend-mode permite misturar cores
-svgStyle :: (Int,Int,Int) -> String
-svgStyle (r,g,b) = printf "stroke:rgba(%d,%d,%d, 0.3);stroke-width:3" r g b
+svgStyle :: Float -> Int -> (Int,Int,Int) -> String
+svgStyle alpha width (r,g,b) = printf "stroke:rgba(%d,%d,%d, %.3f);stroke-width:%d" r g b alpha width 
 
 -- Gera strings SVG para uma dada lista de figuras e seus atributos de estilo
 -- Recebe uma função geradora de strings SVG, uma lista de linhas e strings de estilo
 svgElements :: (a -> String -> String) -> [a] -> [String] -> String
 svgElements func elements styles = concat $ zipWith func elements styles
 
-redPalette :: Int -> [(Int,Int,Int)]
-redPalette n = [(x, 0, 0) | x <- take n [div 255 n,2*(div 255 n)..]]
-
-rgbPalette :: Int -> [(Int,Int,Int)]
-rgbPalette n = take n $ cycle [(255,0,0),(0,255,0),(0,0,255)]
-
-onlyRed :: Int -> [(Int,Int,Int)] 
-onlyRed n = replicate n (255, 0, 0)
+-- Funcoes geradoras de uma roda de cores
+-- O valor 255 corresponde ao valor maximo do formato rgb
+-- Os valores subtraidos de ang sao responsaveis por distribuir as cores no circulo
+-- Eles dividem o circulo em 3 pontos equidistantes
+-- Cada um desses pontos representa o ponto maximo de cada cor
 
 colorAngle :: Float -> (Int, Int, Int)
 colorAngle angle = (r, g, b)
